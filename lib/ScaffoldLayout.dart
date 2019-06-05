@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
 class ScaffoldWidget extends StatelessWidget {
+
+  final String title;
+
+
+  ScaffoldWidget(this.title);
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       //头部元素 ，左边返回按钮、中间标题、右边菜单
       appBar: new AppBar(
-        title: Text('Scaffold脚手架组件示例'),
+        title: Text(title),
         centerTitle: true,
         actions: <Widget>[
           IconButton(

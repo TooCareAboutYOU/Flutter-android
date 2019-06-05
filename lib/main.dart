@@ -3,11 +3,18 @@ import 'package:flutter_book/AppBarLayoutWidget.dart';
 import 'package:flutter_book/BottomNavigationBarWidget.dart';
 import 'package:flutter_book/CustomTabBarWidget.dart';
 import 'package:flutter_book/DrawerWidget.dart';
+import 'package:flutter_book/FlatButtonWidget.dart';
+import 'package:flutter_book/FloatingActionButtonWidget.dart';
+import 'package:flutter_book/PopupMenuButtonWidget.dart';
 import 'package:flutter_book/ScaffoldLayout.dart';
 import 'package:common_utils/common_utils.dart';
+import 'package:flutter_book/SimpleDialogWidget.dart';
 import 'package:flutter_book/TabBarWidget.dart';
 
 void main() => runApp(new MyApp());
+
+final String TAG = 'MMain';
+var TITLE = 'Hello Flutter';
 
 var pages = {
   '/first',
@@ -17,46 +24,100 @@ var pages = {
   '/BottomNavigationBar',
   '/TabBar',
   '/CustomTabBar',
-  '/Drawer'
+  '/Drawer',
+  '/FloatingActionButtonWidget',
+  '/FlatButtonWidget',
+  '/PopupMenuButtonWidget',
+'/SimpleDialogWidget'
 };
+
+var titles = [
+  '登录',
+  '登录结果',
+  '跳转到ScaffOld布局',
+  '跳转到AppBar布局',
+  '跳转到BottomNavigationBarWidget布局',
+  '跳转到TabBar布局',
+  '跳转到自定义TabBar布局',
+  '跳转到Darwer布局',
+  'FloatingActionButton示例',
+  'FlatButton扁平按钮组件',
+  'PopupMenuButton弹出菜单组件',
+  'SimpleDialog简单对话框'
+];
+
 var globalCurrentPage = 0;
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    LogUtil.init(isDebug: true, tag: 'MMain');
+    LogUtil.init(isDebug: true, tag: TAG);
 
     Map<String, WidgetBuilder> map = new Map<String, WidgetBuilder>();
     for (var i = 0; i < pages.length; i++) {
-      map[pages.elementAt(i)] = (BuildContext context) => HomePage(i);
+      map[pages.elementAt(i)] = (BuildContext context) => ContainerView(i);
     }
+
+    var size = map.length;
+    LogUtil.v('页面数：$size');
     return new MaterialApp(
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new HomePage(0),
-      title: 'Flutter示例',
+      home: new Home2Page(),
+      title: TITLE,
       routes: map,
-      initialRoute: pages.elementAt(0),
+      initialRoute: TITLE,
     );
   }
 }
 
 //-----------------------------------------首页-----------------------------------------
-class HomePage extends StatefulWidget {
-  HomePage(currentPage) {
+class Home2Page extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> list = new List<Widget>();
+    for (var i = 0; i < pages.length; i++) {
+      list.add(new RaisedButton(
+        onPressed: () {
+          String msg = pages.elementAt(i);
+          LogUtil.v('点击了：$msg');
+          Navigator.pushNamed(context, pages.elementAt(i));
+        },
+        child: new Text(
+          titles[i],
+          style: TextStyle(fontSize: 18.0),
+        ),
+      ));
+    }
+
+    return new Scaffold(
+      appBar: new AppBar(
+        title: Text(TITLE),
+        centerTitle: true,
+      ),
+      body: new ListView(
+        children: list,
+      ),
+    );
+  }
+}
+
+class ContainerView extends StatefulWidget {
+  ContainerView(currentPage) {
     globalCurrentPage = currentPage;
   }
 
   @override
   State<StatefulWidget> createState() {
-    return _HomePageState();
+    return _ContainerViewState();
   }
 }
 
-class _HomePageState extends State<HomePage> {
+class _ContainerViewState extends State<ContainerView> {
   @override
   Widget build(BuildContext context) {
+    LogUtil.v('当前位置：$globalCurrentPage', tag: TAG);
     switch (globalCurrentPage) {
       case 0:
         {
@@ -64,33 +125,53 @@ class _HomePageState extends State<HomePage> {
         }
       case 1:
         {
-          return new LoginResult();
+          return new LoginResult(titles.elementAt(globalCurrentPage));
         }
       case 2:
         {
-          return new ScaffoldWidget();
+          return new ScaffoldWidget(titles.elementAt(globalCurrentPage));
         }
       case 3:
         {
-          return new AppBarLayoutWidget();
+          return new AppBarLayoutWidget(titles.elementAt(globalCurrentPage));
         }
       case 4:
         {
-          return new BottomNavigationBarWidget();
+          return new BottomNavigationBarWidget(titles.elementAt(globalCurrentPage));
         }
       case 5:
         {
-          return new TabBarWidget();
+          return new TabBarWidget(titles.elementAt(globalCurrentPage));
         }
       case 6:
         {
-          return new CustomTabBarWidget();
+          return new CustomTabBarWidget(titles.elementAt(globalCurrentPage));
         }
-      case 7:{
-        return new DrawerWidget();
+      case 7:
+        {
+          return new DrawerWidget(titles.elementAt(globalCurrentPage));
+        }
+      case 8:
+        {
+          return new FloatingActionButtonWidget(titles.elementAt(globalCurrentPage));
+        }
+      case 9:
+        {
+          return new FlatButtonWidget(titles.elementAt(globalCurrentPage));
+        }
+      case 10:
+        {
+          return new PopupMenuButtonWidget(titles.elementAt(globalCurrentPage));
+        }
+      case 11:
+        {
+          return new SimpleDialogWidget(titles.elementAt(globalCurrentPage));
+        }
+      case 12:{
+         return new SimpleDialogWidget(titles.elementAt(globalCurrentPage));
       }
-      default:
-        return new LoginPage();
+      default:break;
+//        return new LoginPage();
     }
   }
 }
@@ -117,15 +198,12 @@ class _LoginPageState extends State<LoginPage> {
     //验证Form表单
     if (loginForm.validate()) {
       loginForm.save();
-      print('userName：' + userName + ',userPwd：' + userPwd);
       Navigator.pushNamed(context, pages.elementAt(1));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
-
     return new MaterialApp(
       title: 'Form表单示例',
       home: new Scaffold(
@@ -179,60 +257,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            new RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, pages.elementAt(2));
-              },
-              child: new Text(
-                '跳转到ScaffOld布局',
-                style: TextStyle(fontSize: 18.0),
-              ),
-            ),
-            new RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, pages.elementAt(3));
-              },
-              child: new Text(
-                '跳转到AppBar布局',
-                style: TextStyle(fontSize: 18.0),
-              ),
-            ),
-            new RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, pages.elementAt(4));
-              },
-              child: new Text(
-                '跳转到BottomNavigationBarWidget布局',
-                style: TextStyle(fontSize: 18.0),
-              ),
-            ),
-            new RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, pages.elementAt(5));
-              },
-              child: new Text(
-                '跳转到TabBar布局',
-                style: TextStyle(fontSize: 18.0),
-              ),
-            ),
-            new RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, pages.elementAt(6));
-              },
-              child: new Text(
-                '跳转到自定义TabBar布局',
-                style: TextStyle(fontSize: 18.0),
-              ),
-            ),
-            new RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, pages.elementAt(7));
-              },
-              child: new Text(
-                '跳转到Darwer布局',
-                style: TextStyle(fontSize: 18.0),
-              ),
-            ),
           ],
         ),
       ),
@@ -242,13 +266,17 @@ class _LoginPageState extends State<LoginPage> {
 
 //-----------------------------------------登录结果页-----------------------------------------
 class LoginResult extends StatelessWidget {
+  final String title;
+
+  LoginResult(this.title);
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: '登录结果页',
+      title: title,
       home: new Scaffold(
         appBar: new AppBar(
-          title: new Text('登录结果页'),
+          title: new Text(title),
           centerTitle: true,
         ),
         body: new Center(

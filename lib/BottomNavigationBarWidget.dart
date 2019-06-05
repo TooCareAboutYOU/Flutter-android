@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
+String mTitle;
+
 class BottomNavigationBarWidget extends StatefulWidget {
+
+  BottomNavigationBarWidget(String title){
+    mTitle=title;
+  }
+
   @override
   _BottomNavigationBarState createState() {
     return _BottomNavigationBarState();
   }
-
-  BottomNavigationBarWidget({Key key}) : super(key: key);
 }
 
 class _BottomNavigationBarState extends State<BottomNavigationBarWidget> {
@@ -22,7 +27,7 @@ class _BottomNavigationBarState extends State<BottomNavigationBarWidget> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('BottomNavigationBar示例'),
+        title: new Text(mTitle),
         centerTitle: true,
         automaticallyImplyLeading: false,  //显示/隐藏Leading
       ),

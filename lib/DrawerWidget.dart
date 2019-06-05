@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
 class DrawerWidget extends StatelessWidget {
+
+  final String title;
+
+
+  DrawerWidget(this.title);
+
   @override
   Widget build(BuildContext context) {
-    AppBar appBar = new AppBar(title: Text('Drawer抽屉组件示例'));
+    AppBar appBar = new AppBar(title: Text(title));
 
     Drawer drawer = new Drawer(
       child: new ListView(
@@ -14,13 +20,13 @@ class DrawerWidget extends StatelessWidget {
             accountEmail: new Text('11751@qq.com'),
             //设置当前用户的头像
             currentAccountPicture: new CircleAvatar(
-              backgroundImage: new AssetImage("assets/images/music.png")
+              backgroundImage: new AssetImage("images/music.png")
             ),
             onDetailsPressed: (){},
             //属性本来是用来设置当前用户的其他账号的头像，这里用来当QQ二维码图片展示
             otherAccountsPictures: <Widget>[
               new Container(
-                child: Image.asset("assets/images/music.png")
+                child: Image.asset("images/music.png")
               )
             ],
           ),

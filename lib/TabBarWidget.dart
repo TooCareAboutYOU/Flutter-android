@@ -4,6 +4,11 @@ class TabBarWidget extends StatelessWidget {
   //选项卡数据
   final List<Tab> tabs = <Tab>[Tab(text: '选项卡一'), Tab(text: '选项卡二')];
 
+  final String title;
+
+
+  TabBarWidget(this.title);
+
   @override
   Widget build(BuildContext context) {
     MaterialApp materialApp = new MaterialApp(
@@ -13,7 +18,7 @@ class TabBarWidget extends StatelessWidget {
       child: new Scaffold(
         appBar: AppBar(
           //添加导航栏
-          title: Text('TabBar+View'),
+          title: Text(title),
           centerTitle: true,
           bottom: TabBar(tabs: tabs),
         ),

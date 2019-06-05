@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppBarLayoutWidget extends StatelessWidget {
+  final String title;
+
+  AppBarLayoutWidget(this.title);
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Custom AppBar',
+      title: title,
       home: new LayoutWidget(),
     );
   }

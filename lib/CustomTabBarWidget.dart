@@ -10,6 +10,12 @@ final List<TabItemView> list = <TabItemView>[
 ];
 
 class CustomTabBarWidget extends StatelessWidget {
+
+  final String title;
+
+
+  CustomTabBarWidget(this.title);
+
   @override
   Widget build(BuildContext context) {
     TabBar tabBar = new TabBar(
@@ -21,7 +27,7 @@ class CustomTabBarWidget extends StatelessWidget {
       return tab;
     }).toList());
 
-    AppBar appBar = new AppBar(title: new Text('自定义TabBar示例'), bottom: tabBar);
+    AppBar appBar = new AppBar(title: new Text(title), bottom: tabBar);
 
     TabBarView tabBarView = new TabBarView(
         children: list.map((TabItemView item) {
