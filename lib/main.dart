@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_book/AlertDialogWidget.dart';
 import 'package:flutter_book/AppBarLayoutWidget.dart';
 import 'package:flutter_book/BottomNavigationBarWidget.dart';
 import 'package:flutter_book/CustomTabBarWidget.dart';
@@ -10,6 +11,10 @@ import 'package:flutter_book/ScaffoldLayout.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter_book/SimpleDialogWidget.dart';
 import 'package:flutter_book/TabBarWidget.dart';
+import 'package:flutter_book/cupertinos/CupertinoActivityIndicatorWidget.dart';
+import 'package:flutter_book/cupertinos/CupertinoAlertDialogWidget.dart';
+import 'package:flutter_book/cupertinos/CupertinoButtonWidget.dart';
+import 'package:flutter_book/cupertinos/Cupertinos.dart';
 
 void main() => runApp(new MyApp());
 
@@ -28,7 +33,12 @@ var pages = {
   '/FloatingActionButtonWidget',
   '/FlatButtonWidget',
   '/PopupMenuButtonWidget',
-'/SimpleDialogWidget'
+  '/SimpleDialogWidget',
+  '/AlertDialogWidget',
+  '/CupertinoActivityIndicator',
+  '/CupertinoAlertDialog',
+  '/CupertinoButton',
+  '/CupertinoComponent',
 };
 
 var titles = [
@@ -43,7 +53,12 @@ var titles = [
   'FloatingActionButton示例',
   'FlatButton扁平按钮组件',
   'PopupMenuButton弹出菜单组件',
-  'SimpleDialog简单对话框'
+  'SimpleDialog简单对话框',
+  'AlertDialog提示对话框组件',
+  'IOS-CupertinoActivityIndicator组件',
+  'IOS-CupertinoAlertDialog对话框组件',
+  'IOS-CupertinoButton按钮组件',
+  'IOS-Cupertino组件集合',
 ];
 
 var globalCurrentPage = 0;
@@ -64,7 +79,7 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new Home2Page(),
+      home: new HomePage(),
       title: TITLE,
       routes: map,
       initialRoute: TITLE,
@@ -73,7 +88,7 @@ class MyApp extends StatelessWidget {
 }
 
 //-----------------------------------------首页-----------------------------------------
-class Home2Page extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> list = new List<Widget>();
@@ -137,7 +152,8 @@ class _ContainerViewState extends State<ContainerView> {
         }
       case 4:
         {
-          return new BottomNavigationBarWidget(titles.elementAt(globalCurrentPage));
+          return new BottomNavigationBarWidget(
+              titles.elementAt(globalCurrentPage));
         }
       case 5:
         {
@@ -153,7 +169,8 @@ class _ContainerViewState extends State<ContainerView> {
         }
       case 8:
         {
-          return new FloatingActionButtonWidget(titles.elementAt(globalCurrentPage));
+          return new FloatingActionButtonWidget(
+              titles.elementAt(globalCurrentPage));
         }
       case 9:
         {
@@ -167,11 +184,29 @@ class _ContainerViewState extends State<ContainerView> {
         {
           return new SimpleDialogWidget(titles.elementAt(globalCurrentPage));
         }
-      case 12:{
-         return new SimpleDialogWidget(titles.elementAt(globalCurrentPage));
+      case 12:
+        {
+          return new AlertDialogWidget(titles.elementAt(globalCurrentPage));
+        }
+      case 13:
+        {
+          return new CupertinoActivityIndicatorWidget(
+              titles.elementAt(globalCurrentPage));
+        }
+      case 14:
+        {
+          return new CupertinoAlertDialogWidget(
+              titles.elementAt(globalCurrentPage));
+        }
+      case 15:
+        {
+          return new CupertinoButtonWidget(titles.elementAt(globalCurrentPage));
+        }
+      case 16:{
+        return new CupertinosWidget(titles.elementAt(globalCurrentPage));
       }
-      default:break;
-//        return new LoginPage();
+      default:
+        break;
     }
   }
 }
