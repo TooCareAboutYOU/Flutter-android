@@ -426,18 +426,19 @@ class StackPositionedWidget extends StatelessWidget {
   }
 }
 
-//-----------------------------------------IndexedStack、OverflowBox、SizeBox-----------------------------------------
+//-----------------------------------------IndexedStack、OverflowBox、SizeBox、ConstrainedBox-----------------------------------------
 class IndexedStackWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var stack = new IndexedStack(
-      index: 4, //设置索引为 1 就只显示文本内容了
-      alignment: FractionalOffset(0.2, 0.2),
+      index: 8, //设置索引为 1 就只显示文本内容了
+//      alignment: FractionalOffset(0.2, 0.2),
       children: <Widget>[
         new CircleAvatar(
           backgroundImage: new AssetImage('images/dingding.png'),
           radius: 100.0,
         ),
+
         new Container(
           decoration: new BoxDecoration(color: Colors.black38),
           child: new Text(
@@ -449,8 +450,10 @@ class IndexedStackWidget extends StatelessWidget {
                 color: Colors.white),
           ),
         ),
+
         new Image.network(
             'http://i.annihil.us/u/prod/marvel/i/mg/9/a0/54adb647b792d.png'),
+
         new Container(
           color: Colors.green,
           width: 200.0,
@@ -467,24 +470,85 @@ class IndexedStackWidget extends StatelessWidget {
             ),
           ),
         ),
+
+        //固定容器宽高大小
         new SizedBox(
           //固定宽度为200.0 ，高为300.0
           width: 200.0,
           height: 300.0,
           child: new Card(
             child: new Text(
-              'SizeBox',
+              'SizeBox设置具体大小',
               style: TextStyle(fontSize: 36.0),
             ),
           ),
         ),
+
+        //限定最大最小宽高布局
+        new ConstrainedBox(
+          constraints: new BoxConstraints(
+            minWidth: 150.0,
+            minHeight: 150.0,
+            maxWidth: 220.0,
+            maxHeight: 220.0,
+          ),
+          child: new Container(
+            width: 300.0,
+            height: 300.0,
+            color: Colors.red,
+          ),
+        ),
+
+        //限定最大宽高布局
+        new Row(
+          children: <Widget>[
+            new Container(
+              color: Colors.red,
+              width: 150.0,
+            ),
+            new LimitedBox(
+              maxWidth: 150.0, //设置最大宽度，限定child在此范围内
+              child: new Container(
+                color: Colors.lightGreen,
+                width: 250.0,
+              ),
+            ),
+          ],
+        ),
+
+        //调整宽高比
+        new Container(
+          height: 220.0,
+          child: new AspectRatio(
+            aspectRatio: 1.5, //调整比例  宽是高度的 1.5 倍，及 200x1.5
+            child: new Container(
+              color: Colors.green,
+            ),
+          ),
+        ),
+
+        //百分比布局
+        new Container(
+          height: 200.0,
+          width: 200.0,
+          color: Colors.blueGrey,
+          child: new FractionallySizedBox(
+            alignment: Alignment.center, //元素做上角对齐
+            widthFactor: 0.5, //宽度因子：宽度乘以这个值 就是最后的宽度
+            heightFactor: 2, //同上
+            child: new Container(
+              color: Colors.red,
+            ),
+          )
+        ),
+
       ],
     );
 
     return new MaterialApp(
       title: 'Container布局',
       home: new Scaffold(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
         appBar: new AppBar(
           title: new Text('IndexedStack'),
           centerTitle: true,

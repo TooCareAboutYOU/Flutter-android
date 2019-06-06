@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 class CupertinoActivityIndicatorWidget extends StatelessWidget{
 
-  String title;
-
+  final String title;
 
   CupertinoActivityIndicatorWidget(this.title);
 

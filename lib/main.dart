@@ -6,11 +6,14 @@ import 'package:flutter_book/CustomTabBarWidget.dart';
 import 'package:flutter_book/DrawerWidget.dart';
 import 'package:flutter_book/FlatButtonWidget.dart';
 import 'package:flutter_book/FloatingActionButtonWidget.dart';
+import 'package:flutter_book/GridViewWidget.dart';
 import 'package:flutter_book/PopupMenuButtonWidget.dart';
 import 'package:flutter_book/ScaffoldLayout.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter_book/SimpleDialogWidget.dart';
 import 'package:flutter_book/TabBarWidget.dart';
+import 'package:flutter_book/TableWidget.dart';
+import 'package:flutter_book/TransformWidget.dart';
 import 'package:flutter_book/cupertinos/CupertinoActivityIndicatorWidget.dart';
 import 'package:flutter_book/cupertinos/CupertinoAlertDialogWidget.dart';
 import 'package:flutter_book/cupertinos/CupertinoButtonWidget.dart';
@@ -24,12 +27,12 @@ var TITLE = 'Hello Flutter';
 var pages = {
   '/first',
   '/second',
-  '/Scaffold',
-  '/AppBar',
-  '/BottomNavigationBar',
-  '/TabBar',
-  '/CustomTabBar',
-  '/Drawer',
+  '/ScaffoldLayout',
+  '/AppBarWidget',
+  '/BottomNavigationBarWidget',
+  '/TabBarWidget',
+  '/CustomTabBarWidget',
+  '/DrawerWidget',
   '/FloatingActionButtonWidget',
   '/FlatButtonWidget',
   '/PopupMenuButtonWidget',
@@ -39,6 +42,9 @@ var pages = {
   '/CupertinoAlertDialog',
   '/CupertinoButton',
   '/CupertinoComponent',
+  '/GridViewWidget',
+  '/TableWidget',
+  '/TransformWidget'
 };
 
 var titles = [
@@ -59,6 +65,9 @@ var titles = [
   'IOS-CupertinoAlertDialog对话框组件',
   'IOS-CupertinoButton按钮组件',
   'IOS-Cupertino组件集合',
+  'GridViewWidget',
+  'TableWidget',
+  'TransformWidget',
 ];
 
 var globalCurrentPage = 0;
@@ -202,9 +211,22 @@ class _ContainerViewState extends State<ContainerView> {
         {
           return new CupertinoButtonWidget(titles.elementAt(globalCurrentPage));
         }
-      case 16:{
-        return new CupertinosWidget(titles.elementAt(globalCurrentPage));
-      }
+      case 16:
+        {
+          return new CupertinosWidget(titles.elementAt(globalCurrentPage));
+        }
+      case 17:
+        {
+          return new GridViewWidget(titles.elementAt(globalCurrentPage));
+        }
+      case 18:
+        {
+          return new TableWidget(titles.elementAt(globalCurrentPage));
+        }
+      case 19:
+        {
+          return new TransformWidget(titles.elementAt(globalCurrentPage));
+        }
       default:
         break;
     }
