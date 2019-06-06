@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_book/AlertDialogWidget.dart';
 import 'package:flutter_book/AppBarLayoutWidget.dart';
+import 'package:flutter_book/BaseLineWidget.dart';
 import 'package:flutter_book/BottomNavigationBarWidget.dart';
 import 'package:flutter_book/CustomTabBarWidget.dart';
 import 'package:flutter_book/DrawerWidget.dart';
 import 'package:flutter_book/FlatButtonWidget.dart';
 import 'package:flutter_book/FloatingActionButtonWidget.dart';
 import 'package:flutter_book/GridViewWidget.dart';
+import 'package:flutter_book/OffstageWidget.dart';
 import 'package:flutter_book/PopupMenuButtonWidget.dart';
 import 'package:flutter_book/ScaffoldLayout.dart';
 import 'package:common_utils/common_utils.dart';
@@ -14,6 +16,7 @@ import 'package:flutter_book/SimpleDialogWidget.dart';
 import 'package:flutter_book/TabBarWidget.dart';
 import 'package:flutter_book/TableWidget.dart';
 import 'package:flutter_book/TransformWidget.dart';
+import 'package:flutter_book/WrapWidget.dart';
 import 'package:flutter_book/cupertinos/CupertinoActivityIndicatorWidget.dart';
 import 'package:flutter_book/cupertinos/CupertinoAlertDialogWidget.dart';
 import 'package:flutter_book/cupertinos/CupertinoButtonWidget.dart';
@@ -44,7 +47,10 @@ var pages = {
   '/CupertinoComponent',
   '/GridViewWidget',
   '/TableWidget',
-  '/TransformWidget'
+  '/TransformWidget',
+  '/BaseLineWidget',
+  '/Offstage',
+'/WrapWidget',
 };
 
 var titles = [
@@ -67,7 +73,11 @@ var titles = [
   'IOS-Cupertino组件集合',
   'GridViewWidget',
   'TableWidget',
-  'TransformWidget',
+  'TransformWidget矩阵转换',
+  'BaseLineWidget基准线布局',
+  'Offstage控制是否显示组件',
+  'WrapWidget按宽高自动换行布局',
+
 ];
 
 var globalCurrentPage = 0;
@@ -141,7 +151,7 @@ class ContainerView extends StatefulWidget {
 class _ContainerViewState extends State<ContainerView> {
   @override
   Widget build(BuildContext context) {
-    LogUtil.v('当前位置：$globalCurrentPage', tag: TAG);
+    LogUtil.v('当前位置：$globalCurrentPage');
     switch (globalCurrentPage) {
       case 0:
         {
@@ -227,6 +237,16 @@ class _ContainerViewState extends State<ContainerView> {
         {
           return new TransformWidget(titles.elementAt(globalCurrentPage));
         }
+      case 20:
+        {
+          return new BaseLineWidget(titles.elementAt(globalCurrentPage));
+        }
+      case 21:{
+        return new OffstageWidget(titles.elementAt(globalCurrentPage));
+      }
+      case 22:{
+        return new WrapWidget(titles.elementAt(globalCurrentPage));
+      }
       default:
         break;
     }

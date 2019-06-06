@@ -18,10 +18,11 @@ class TransformWidget extends StatelessWidget {
     );
 
     Center center = new Center(
-        child: new Container(
-      child: transform,
-      color: Colors.grey,
-    ));
+      child: new Container(
+        child: transform,
+        color: Colors.grey,
+      ),
+    );
 
     return new Scaffold(
       appBar: new AppBar(
